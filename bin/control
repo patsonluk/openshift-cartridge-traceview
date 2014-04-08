@@ -1,0 +1,224 @@
+#!/bin/bash -eu
+
+source $OPENSHIFT_CARTRIDGE_SDK_BASH
+CALL=$1
+
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+
+DAEMON=/usr/bin/tracelyzer
+DAEMON2=/usr/bin/tracelyzer-conn
+NAME=tracelyzer
+NAME2=tracelyzer-conn
+DESC=tracelyzer
+LOGDIR=/var/log/tracelyzer
+
+PIDDIR=/var/run/tracelyzer
+PIDFILE=$PIDDIR/$NAME.pid
+PIDFILE2=$PIDDIR/$NAME2.pid
+
+. /lib/lsb/init-functions
+
+LOGFILE=$LOGDIR/$NAME.log
+LOGFILE2=$LOGDIR/$NAME2.log
+DAEMONUSER=appneta
+
+CONF_TRACELYZER=/etc/tracelyzer/tracelyzer.conf
+CONF_CLIENT_PRIV=/etc/tracelyzer/auth_client
+CONF_SERVER_PUB=/etc/tracelyzer/auth_server.pub
+
+COLLECTOR_HOST=incoming.tracelytics.com
+COLLECTOR_PORT=2222
+
+# Include collector config file (downloaded by appneta-config)
+LISTEN_HOST=127.0.0.1
+LISTEN_PORT=7831
+
+AUTOSSH_DEBUG=0
+
+if [ -f /etc/tracelyzer/collector.conf ]; then
+    . /etc/tracelyzer/collector.conf
+fi
+
+# Include tracelyzer defaults if available
+if [ -f /etc/default/tracelyzer ]; then
+        . /etc/default/tracelyzer
+fi
+
+DAEMON_OPTS="-c $CONF_TRACELYZER -d -P $PIDFILE -l $LOGFILE -L $LISTEN_HOST -O $LISTEN_PORT"
+DAEMON2_OPTS="-M 0 -f -NnC -i $CONF_CLIENT_PRIV -L 7831:127.0.0.1:1463"
+case "$(ssh -V 2>&1 1>/dev/null)" in
+    # ExitOnForwardFailure option added in OpenSSH 4.4
+    OpenSSH_4.[4-9]*|OpenSSH_[5-9]*)
+        DAEMON2_OPTS="$DAEMON2_OPTS -o ExitOnForwardFailure=yes" ;;
+    *) ;;
+esac
+DAEMON2_OPTS="$DAEMON2_OPTS"\
+" -o UserKnownHostsFile=$CONF_SERVER_PUB"\
+" -o StrictHostKeyChecking=yes"\
+" -o CheckHostIP=no"\
+" -o ServerAliveInterval=30"\
+" -o ServerAliveCountMax=2"
+
+# SOCKS proxy variables configured?
+if [ -n "$PROXY_ADDRESS" ]; then
+  if [ -z "$NC_COMMAND" ]; then
+    NC_COMMAND=`which nc`
+    if [ "$?" -ne "0" ]; then
+	echo "ERROR: SOCKS proxy support requires netcat (nc)."
+	echo "Please install netcat or contact us at traceviewsupport@appneta.com for assistance."
+        exit 1
+    fi
+  fi
+  if [ -n "$PROXY_PROTOCOL" ]; then
+    PROXY_PROTO_OPT="-X $PROXY_PROTOCOL"
+  fi
+  DAEMON2_OPTS="$DAEMON2_OPTS -o ProxyCommand=\"$NC_COMMAND $PROXY_PROTO_OPT -x $PROXY_ADDRESS %h %p\""
+fi
+
+DAEMON2_OPTS="$DAEMON2_OPTS -p $COLLECTOR_PORT customer@$COLLECTOR_HOST"
+
+set -e
+
+any_running() {
+        ps -u $DAEMONUSER > /dev/null 2>&1
+        return $?
+}
+
+all_running() {
+        ps -C $NAME > /dev/null 2>&1 \
+        && ps -C $NAME2 > /dev/null 2>&1 \
+        && ps -u appneta | grep ssh > /dev/null 2>&1
+        return $?
+}
+
+start_server() {
+        if [ ! -s $CONF_TRACELYZER ] ||
+           [ ! -s $CONF_CLIENT_PRIV ] || 
+           [ ! -s $CONF_SERVER_PUB ]; then
+           echo -n "Error: required config file does not exist."
+           return 1
+        fi
+
+        if [ ! -d $PIDDIR ]; then
+            mkdir -p $PIDDIR
+            chown ${DAEMONUSER}: $PIDDIR
+        fi
+
+        export AUTOSSH_LOGFILE=$LOGFILE2
+        export AUTOSSH_PIDFILE=$PIDFILE2
+        export AUTOSSH_GATETIME=0
+        export AUTOSSH_DEBUG=$AUTOSSH_DEBUG
+
+        /bin/sh -c "start-stop-daemon --start --quiet --pidfile $PIDFILE2 \
+                --chuid $DAEMONUSER \
+                --exec $DAEMON2 --oknodo -- $DAEMON2_OPTS"
+
+        sleep 2
+
+        start-stop-daemon --start --quiet --pidfile $PIDFILE \
+                --chuid $DAEMONUSER \
+                --exec $DAEMON --oknodo -- $DAEMON_OPTS
+}
+
+stop_server() {
+        set +e
+
+        start-stop-daemon --stop --quiet --pidfile $PIDFILE \
+                    --user $DAEMONUSER \
+                    --exec $DAEMON
+        start-stop-daemon --stop --quiet --pidfile $PIDFILE2 \
+                    --user $DAEMONUSER \
+                    --exec $DAEMON2
+
+        sleep 2
+
+        if any_running; then
+                killall -u $DAEMONUSER -9
+        fi
+
+        set -e
+}
+
+restart_server() {
+        if any_running; then
+                stop_server
+        fi
+
+        start_server
+}
+
+function not_implemented {
+  echo "$CALL: not implemented"
+}
+
+
+case "$1" in
+  start)
+        echo -n "Starting $DESC..."
+
+        restart_server
+
+        sleep 1
+
+        if all_running; then
+                echo "done."
+        else
+                echo "failed."
+        fi
+
+        ;;
+
+  stop)
+        echo -n "Stopping $DESC..."
+
+        if any_running; then
+                stop_server
+                echo "done."
+        else
+                echo "apparently not running."
+        fi
+
+        ;;
+
+  restart)
+        echo -n "Restarting $DESC..."
+
+        restart_server
+
+        sleep 1
+
+        if all_running; then
+                echo "done."
+        else
+                echo "failed."
+        fi
+        ;;
+
+  status)
+        echo -n "Checking status of $DESC..."
+        if all_running ;  then
+                echo "running."
+        else
+                echo "not all processes running; consider restarting?"
+        fi
+        ;;
+  reload)        not_implemented ;;
+  tidy)          not_implemented ;;
+  pre-build)     not_implemented ;;
+  build)         not_implemented ;;
+  deploy)        not_implemented ;;
+  post-deploy)   not_implemented ;;
+  pre-snapshot)  not_implemented ;;
+  post-snapshot) not_implemented ;;
+  pre-restore)   not_implemented ;;
+  post-restore)  not_implemented ;;
+  pre-receive)   not_implemented ;;
+  update-configuration) not_implemented ;;
+
+  *)
+        N=/etc/init.d/$NAME
+        echo "Usage: $N {start|stop|restart|status}" >&2
+        ;;
+esac
+
+exit 0

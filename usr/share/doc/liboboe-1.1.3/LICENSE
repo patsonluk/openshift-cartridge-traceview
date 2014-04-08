@@ -1,0 +1,12 @@
+This software includes portions of the MongoDB C driver, which is
+Copyright (c) 2009, 2010 10gen, Inc. and distributed under the Apache
+License, Version 2.0.  See https://github.com/mongodb/mongo-c-driver/
+for details.  A copy of the Apache License is included with this
+distribution in Apache-2.0.txt.
+
+All other components are Copyright (c) 2013 AppNeta, Inc. All Rights 
+Reserved. The software licensed and made available to you by AppNeta, 
+Inc. and/or through your use of tracelytics.com is licensed pursuant 
+to the then-current AppNeta Terms of 
+Service:http://www.appneta.com/appneta-terms-of-service/ or other 
+AppNeta designated terms and conditions.

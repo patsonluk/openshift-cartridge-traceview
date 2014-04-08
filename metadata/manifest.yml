@@ -1,0 +1,22 @@
+Name: traceview
+Cartridge-Short-Name: TRACEVIEW
+Display-Name: Downloadable TraceView cartridge 0.x 
+Description: "A downloadable TraceView cartridge for Application Performance Monitoring."
+Version: '0.1'
+Versions: ['0.1']
+License: BSD
+Vendor: AppNeta
+Cartridge-Version: 0.1
+Cartridge-Vendor: community
+Source-Url: https://github.com/pglombardo/openshift-cartridge-traceview.git
+Categories:
+  - service
+Provides:
+  - traceview-0.1
+  - "traceview"
+Subscribes:
+Scaling:
+  Min: 1
+  Max: -1
+Install-Build-Required: false
+
