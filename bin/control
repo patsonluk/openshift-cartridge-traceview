@@ -5,14 +5,14 @@ CALL=$1
 
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 
-DAEMON=/usr/bin/tracelyzer
-DAEMON2=/usr/bin/tracelyzer-conn
+DAEMON=${OPENSHIFT_TRACEVIEW_DIR}usr/bin/tracelyzer
+DAEMON2=${OPENSHIFT_TRACEVIEW_DIR}usr/bin/tracelyzer-conn
 NAME=tracelyzer
 NAME2=tracelyzer-conn
 DESC=tracelyzer
-LOGDIR=/var/log/tracelyzer
+LOGDIR=${OPENSHIFT_TRACEVIEW_DIR}var/log/tracelyzer
 
-PIDDIR=/var/run/tracelyzer
+PIDDIR=${OPENSHIFT_TRACEVIEW_DIR}var/run/tracelyzer
 PIDFILE=$PIDDIR/$NAME.pid
 PIDFILE2=$PIDDIR/$NAME2.pid
 
@@ -22,9 +22,9 @@ LOGFILE=$LOGDIR/$NAME.log
 LOGFILE2=$LOGDIR/$NAME2.log
 DAEMONUSER=appneta
 
-CONF_TRACELYZER=/etc/tracelyzer/tracelyzer.conf
-CONF_CLIENT_PRIV=/etc/tracelyzer/auth_client
-CONF_SERVER_PUB=/etc/tracelyzer/auth_server.pub
+CONF_TRACELYZER=${OPENSHIFT_TRACEVIEW_DIR}etc/tracelyzer/tracelyzer.conf
+CONF_CLIENT_PRIV=${OPENSHIFT_TRACEVIEW_DIR}etc/tracelyzer/auth_client
+CONF_SERVER_PUB=${OPENSHIFT_TRACEVIEW_DIR}etc/tracelyzer/auth_server.pub
 
 COLLECTOR_HOST=incoming.tracelytics.com
 COLLECTOR_PORT=2222
@@ -35,13 +35,13 @@ LISTEN_PORT=7831
 
 AUTOSSH_DEBUG=0
 
-if [ -f /etc/tracelyzer/collector.conf ]; then
-    . /etc/tracelyzer/collector.conf
+if [ -f "${OPENSHIFT_TRACEVIEW_DIR}etc/tracelyzer/collector.conf" ]; then
+    . "${OPENSHIFT_TRACEVIEW_DIR}etc/tracelyzer/collector.conf"
 fi
 
 # Include tracelyzer defaults if available
-if [ -f /etc/default/tracelyzer ]; then
-        . /etc/default/tracelyzer
+if [ -f "${OPENSHIFT_TRACEVIEW_DIR}etc/default/tracelyzer" ]; then
+        . "${OPENSHIFT_TRACEVIEW_DIR}etc/default/tracelyzer"
 fi
 
 DAEMON_OPTS="-c $CONF_TRACELYZER -d -P $PIDFILE -l $LOGFILE -L $LISTEN_HOST -O $LISTEN_PORT"
