@@ -60,20 +60,20 @@ DAEMON2_OPTS="$DAEMON2_OPTS"\
 " -o ServerAliveCountMax=2"
 
 # SOCKS proxy variables configured?
-if [ -n "$PROXY_ADDRESS" ]; then
-  if [ -z "$NC_COMMAND" ]; then
-    NC_COMMAND=`which nc`
-    if [ "$?" -ne "0" ]; then
-	echo "ERROR: SOCKS proxy support requires netcat (nc)."
-	echo "Please install netcat or contact us at traceviewsupport@appneta.com for assistance."
-        exit 1
-    fi
-  fi
-  if [ -n "$PROXY_PROTOCOL" ]; then
-    PROXY_PROTO_OPT="-X $PROXY_PROTOCOL"
-  fi
-  DAEMON2_OPTS="$DAEMON2_OPTS -o ProxyCommand=\"$NC_COMMAND $PROXY_PROTO_OPT -x $PROXY_ADDRESS %h %p\""
-fi
+#if [ -n "$PROXY_ADDRESS" ]; then
+#  if [ -z "$NC_COMMAND" ]; then
+#    NC_COMMAND=`which nc`
+#    if [ "$?" -ne "0" ]; then
+#	echo "ERROR: SOCKS proxy support requires netcat (nc)."
+#	echo "Please install netcat or contact us at traceviewsupport@appneta.com for assistance."
+#        exit 1
+#    fi
+#  fi
+#  if [ -n "$PROXY_PROTOCOL" ]; then
+#    PROXY_PROTO_OPT="-X $PROXY_PROTOCOL"
+#  fi
+#  DAEMON2_OPTS="$DAEMON2_OPTS -o ProxyCommand=\"$NC_COMMAND $PROXY_PROTO_OPT -x $PROXY_ADDRESS %h %p\""
+#fi
 
 DAEMON2_OPTS="$DAEMON2_OPTS -p $COLLECTOR_PORT customer@$COLLECTOR_HOST"
 
