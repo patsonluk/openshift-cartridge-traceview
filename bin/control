@@ -20,7 +20,7 @@ PIDFILE2=$PIDDIR/$NAME2.pid
 
 LOGFILE=$LOGDIR/$NAME.log
 LOGFILE2=$LOGDIR/$NAME2.log
-DAEMONUSER=appneta
+DAEMONUSER=${OPENSHIFT_GEAR_UUID}
 
 CONF_TRACELYZER=${OPENSHIFT_TRACEVIEW_DIR}etc/tracelyzer/tracelyzer.conf
 CONF_CLIENT_PRIV=${OPENSHIFT_TRACEVIEW_DIR}etc/tracelyzer/auth_client
@@ -104,20 +104,19 @@ start_server() {
             chown ${DAEMONUSER}: $PIDDIR
         fi
 
-        export AUTOSSH_LOGFILE=$LOGFILE2
-        export AUTOSSH_PIDFILE=$PIDFILE2
-        export AUTOSSH_GATETIME=0
-        export AUTOSSH_DEBUG=$AUTOSSH_DEBUG
+        #/bin/sh -c "start-stop-daemon --start --quiet --pidfile $PIDFILE2 \
+        #        --chuid $DAEMONUSER \
+        #        --exec $DAEMON2 --oknodo -- $DAEMON2_OPTS"
 
-        /bin/sh -c "start-stop-daemon --start --quiet --pidfile $PIDFILE2 \
-                --chuid $DAEMONUSER \
-                --exec $DAEMON2 --oknodo -- $DAEMON2_OPTS"
+        /bin/sh -c "$DAEMON2 --oknodo -- $DAEMON2_OPTS"
 
         sleep 2
 
-        start-stop-daemon --start --quiet --pidfile $PIDFILE \
-                --chuid $DAEMONUSER \
-                --exec $DAEMON --oknodo -- $DAEMON_OPTS
+        # start-stop-daemon --start --quiet --pidfile $PIDFILE \
+        #         --chuid $DAEMONUSER \
+        #         --exec $DAEMON --oknodo -- $DAEMON_OPTS
+        
+        /bin/sh -c "$DAEMON --oknodo -- $DAEMON_OPTS"
 }
 
 stop_server() {
