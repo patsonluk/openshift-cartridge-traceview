@@ -122,12 +122,12 @@ start_server() {
 stop_server() {
         set +e
 
-        start-stop-daemon --stop --quiet --pidfile $PIDFILE \
-                    --user $DAEMONUSER \
-                    --exec $DAEMON
-        start-stop-daemon --stop --quiet --pidfile $PIDFILE2 \
-                    --user $DAEMONUSER \
-                    --exec $DAEMON2
+        #start-stop-daemon --stop --quiet --pidfile $PIDFILE \
+        #            --user $DAEMONUSER \
+        #            --exec $DAEMON
+        #start-stop-daemon --stop --quiet --pidfile $PIDFILE2 \
+        #            --user $DAEMONUSER \
+        #            --exec $DAEMON2
 
         sleep 2
 
