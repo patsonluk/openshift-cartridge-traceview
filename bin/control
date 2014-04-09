@@ -108,6 +108,7 @@ start_server() {
         #        --chuid $DAEMONUSER \
         #        --exec $DAEMON2 --oknodo -- $DAEMON2_OPTS"
 
+        echo -n "Executing: $DAEMON2 $DAEMON2_OPTS"
         $DAEMON2 $DAEMON2_OPTS
 
         sleep 2
@@ -116,6 +117,7 @@ start_server() {
         #         --chuid $DAEMONUSER \
         #         --exec $DAEMON --oknodo -- $DAEMON_OPTS
         
+        echo -n "$DAEMON $DAEMON_OPTS"
         $DAEMON $DAEMON_OPTS
 }
 
