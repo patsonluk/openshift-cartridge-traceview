@@ -15,6 +15,10 @@ Provides:
   - traceview-0.1
   - "traceview"
 Subscribes:
+Endpoints:
+  - Private-IP-Name: IP
+    Private-Port-Name: PORT
+    Private-Port: 7831
 Scaling:
   Min: 1
   Max: -1
