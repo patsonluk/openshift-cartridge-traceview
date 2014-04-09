@@ -159,6 +159,8 @@ function not_implemented {
 case "$1" in
   start)
         echo -n "Starting $DESC..."
+        echo -n "Will call: $DAEMON2 $DAEMON2_OPTS"
+        echo -n "Will call: $DAEMON $DAEMON_OPTS"
 
         restart_server
 
