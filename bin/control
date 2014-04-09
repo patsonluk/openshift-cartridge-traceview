@@ -101,10 +101,10 @@ start_server() {
            return 1
         fi
 
-        if [ ! -d $PIDDIR ]; then
-            mkdir -p $PIDDIR
-            chown ${DAEMONUSER}: $PIDDIR
-        fi
+        #if [ ! -d $PIDDIR ]; then
+        #    mkdir -p $PIDDIR
+        #    chown ${DAEMONUSER}: $PIDDIR
+        #fi
 
         #/bin/sh -c "start-stop-daemon --start --quiet --pidfile $PIDFILE2 \
         #        --chuid $DAEMONUSER \
@@ -119,7 +119,7 @@ start_server() {
         #         --chuid $DAEMONUSER \
         #         --exec $DAEMON --oknodo -- $DAEMON_OPTS
         
-        echo -n "$DAEMON $DAEMON_OPTS"
+        echo -n "Executing: $DAEMON $DAEMON_OPTS"
         $DAEMON $DAEMON_OPTS
 }
 
