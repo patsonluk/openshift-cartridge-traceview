@@ -1,1 +1,1 @@
-<%= "#{ENV['LD_LIBRARY_PATH']}:#{ENV['OPENSHIFT_TRACEVIEW_DIR']}/usr/lib64:#{ENV['OPENSHIFT_TRACEVIEW_DIR']}/usr/lib64/tracelyzer %>
+<%= ENV['LD_LIBRARY_PATH'] %>:<%= ENV['OPENSHIFT_TRACEVIEW_DIR'] %>/usr/lib64:<%= ENV['OPENSHIFT_TRACEVIEW_DIR'] %>/usr/lib64/tracelyzer
