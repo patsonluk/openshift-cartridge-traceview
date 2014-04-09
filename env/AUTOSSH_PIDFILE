@@ -1,1 +1,0 @@
-export AUTOSSH_PIDFILE=<%= ENV['OPENSHIFT_TRACEVIEW_DIR'] %>/var/run/tracelyzer/tracelyzer-conn.pid
