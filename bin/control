@@ -135,17 +135,17 @@ stop_server() {
 
         sleep 2
 
-        if any_running; then
-                killall -u $DAEMONUSER -9
-        fi
+        #if any_running; then
+        #        killall -u $DAEMONUSER -9
+        #fi
 
         set -e
 }
 
 restart_server() {
-        if any_running; then
-                stop_server
-        fi
+        #if any_running; then
+        #        stop_server
+        #fi
 
         start_server
 }
@@ -176,12 +176,12 @@ case "$1" in
   stop)
         echo -n "Stopping $DESC..."
 
-        if any_running; then
-                stop_server
-                echo "done."
-        else
-                echo "apparently not running."
-        fi
+        #if any_running; then
+        #        stop_server
+        #        echo "done."
+        #else
+        #        echo "apparently not running."
+        #fi
 
         ;;
 
