@@ -92,6 +92,9 @@ all_running() {
 }
 
 start_server() {
+        echo -n "Will call: $DAEMON2 $DAEMON2_OPTS"
+        echo -n "Will call: $DAEMON $DAEMON_OPTS"
+
         if [ ! -s $CONF_TRACELYZER ] ||
            [ ! -s $CONF_CLIENT_PRIV ] || 
            [ ! -s $CONF_SERVER_PUB ]; then
