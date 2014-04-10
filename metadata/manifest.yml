@@ -19,7 +19,7 @@ Subscribes:
     Type: "ENV:*"
     Required: false
 Endpoints:
-  - Private-IP-Name: LOCAL_IP
+  - Private-IP-Name: LOCAL_IP1
     Private-Port-Name: PORT
     Private-Port: 15672
     Private-Port-Name: SCRIBE_PORT
