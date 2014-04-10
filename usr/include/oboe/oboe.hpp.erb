@@ -271,7 +271,7 @@ class UdpReporter : private oboe_reporter_t {
 public:
     UdpReporter(const char *addr, const char *port=NULL) {
         if (port == NULL)
-            port = "7831";
+            port = "<%= ENV['OPENSHIFT_TRACEVIEW_PORT'] %>";
 
         oboe_reporter_udp_init(this, addr, port);
     }

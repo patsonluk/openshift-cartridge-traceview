@@ -17,7 +17,7 @@ extern "C" {
 #define OBOE_MAX_METADATA_PACK_LEN 512
 
 #define XTR_CURRENT_VERSION 1
-#define XTR_UDP_PORT 7831
+#define XTR_UDP_PORT <%= ENV['OPENSHIFT_TRACEVIEW_PORT'] %>
 
 
 // structs
