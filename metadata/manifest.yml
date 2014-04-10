@@ -22,7 +22,6 @@ Endpoints:
   - Private-IP-Name: LOCAL_IP
     Private-Port-Name: PORT
     Private-Port: 15662
-    Public-Port-Name: PROXY_PORT
 Scaling:
   Min: 1
   Max: -1
