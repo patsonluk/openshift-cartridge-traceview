@@ -21,7 +21,7 @@ Subscribes:
 Endpoints:
   - Private-IP-Name: LOCAL_IP
     Private-Port-Name: PORT
-    Private-Port: 15662
+    Private-Port: 15672
 Scaling:
   Min: 1
   Max: -1
