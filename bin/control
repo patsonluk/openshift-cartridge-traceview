@@ -37,6 +37,9 @@ LOCAL_IP=127.4.14.3
 
 AUTOSSH_DEBUG=0
 
+# FIXME: Hack file permissions fix
+/bin/chmod 600 $OPENSHIFT_TRACEVIEW_DIR/etc/tracelyzer/auth_client
+
 if [ -f "${OPENSHIFT_TRACEVIEW_DIR}etc/tracelyzer/collector.conf" ]; then
     . "${OPENSHIFT_TRACEVIEW_DIR}etc/tracelyzer/collector.conf"
 fi
