@@ -21,7 +21,7 @@ Subscribes:
 Endpoints:
   - Private-IP-Name: PRIVATE_IP
     Private-Port-Name: PORT
-    Private-Port: 7831
+    Private-Port: 15662
     Public-Port-Name: PROXY_PORT
 Scaling:
   Min: 1
