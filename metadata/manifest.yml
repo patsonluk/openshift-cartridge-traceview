@@ -8,15 +8,21 @@ Vendor: AppNeta
 Cartridge-Version: 0.1.1
 Cartridge-Vendor: community
 Source-Url: https://github.com/pglombardo/openshift-cartridge-traceview.git
+Website: http://www.appneta.com/products/traceview
 Categories:
   - service
 Provides:
   - traceview-0.1
   - "traceview"
+Subscribes:
+  set-env:
+    Type: "ENV:*"
+    Required: false
 Endpoints:
   - Private-IP-Name: PRIVATE_IP
     Private-Port-Name: PORT
     Private-Port: 7831
+    Public-Port-Name: PROXY_PORT
 Scaling:
   Min: 1
   Max: -1
