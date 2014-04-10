@@ -29,13 +29,7 @@ CONF_SERVER_PUB=${OPENSHIFT_TRACEVIEW_DIR}etc/tracelyzer/auth_server.pub
 COLLECTOR_HOST=incoming.tracelytics.com
 COLLECTOR_PORT=2222
 
-# Include collector config file (downloaded by appneta-config)
-#LISTEN_HOST=127.0.0.1
-#LISTEN_PORT=7831
-
-LOCAL_IP=127.4.14.3
-
-AUTOSSH_DEBUG=0
+LOCAL_IP=$OPENSHIFT_TRACEVIEW_PRIVATE_IP
 
 # FIXME: Hack file permissions fix
 /bin/chmod 600 $OPENSHIFT_TRACEVIEW_DIR/etc/tracelyzer/auth_client
@@ -49,8 +43,8 @@ if [ -f "${OPENSHIFT_TRACEVIEW_DIR}etc/default/tracelyzer" ]; then
         . "${OPENSHIFT_TRACEVIEW_DIR}etc/default/tracelyzer"
 fi
 
-DAEMON_OPTS="-c $CONF_TRACELYZER -d -P $PIDFILE -l $LOGFILE -L $LOCAL_IP -O 7831"
-DAEMON2_OPTS="-M 0 -f -NnC -i $CONF_CLIENT_PRIV -L 7831:$LOCAL_IP:1463"
+DAEMON_OPTS="-c $CONF_TRACELYZER -d -P $PIDFILE -l $LOGFILE -L $LOCAL_IP -O $OPENSHIFT_TRACEVIEW_PORT"
+DAEMON2_OPTS="-M 0 -f -NnC -i $CONF_CLIENT_PRIV -L $OPENSHIFT_TRACEVIEW_PORT:$LOCAL_IP:1463"
 case "$(ssh -V 2>&1 1>/dev/null)" in
     # ExitOnForwardFailure option added in OpenSSH 4.4
     OpenSSH_4.[4-9]*|OpenSSH_[5-9]*)
