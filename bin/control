@@ -29,7 +29,7 @@ CONF_SERVER_PUB=${OPENSHIFT_TRACEVIEW_DIR}etc/tracelyzer/auth_server.pub
 COLLECTOR_HOST=incoming.tracelytics.com
 COLLECTOR_PORT=2222
 
-LOCAL_IP=$OPENSHIFT_TRACEVIEW_PRIVATE_IP
+LOCAL_IP=$OPENSHIFT_TRACEVIEW_LOCAL_IP
 
 # FIXME: Hack file permissions fix
 /bin/chmod 600 $OPENSHIFT_TRACEVIEW_DIR/etc/tracelyzer/auth_client

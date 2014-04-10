@@ -1,11 +1,11 @@
 port=48256
-host=<%= ENV['OPENSHIFT_TRACEVIEW_PRIVATE_IP'] %>
+host=<%= ENV['OPENSHIFT_TRACEVIEW_LOCAL_IP'] %>
 num_thrift_server_threads=1
 clientid=f51e2a43-0ee5-4851-8a54-825773b3218e
 <store>
 category=default
 type=network
 must_succeed=no
-remote_host=<%= ENV['OPENSHIFT_TRACEVIEW_PRIVATE_IP'] %>
+remote_host=<%= ENV['OPENSHIFT_TRACEVIEW_LOCAL_IP'] %>
 remote_port=<%= ENV['OPENSHIFT_TRACEVIEW_PORT'] %>
 </store>

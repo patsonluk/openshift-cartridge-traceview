@@ -19,7 +19,7 @@ Subscribes:
     Type: "ENV:*"
     Required: false
 Endpoints:
-  - Private-IP-Name: PRIVATE_IP
+  - Private-IP-Name: LOCAL_IP
     Private-Port-Name: PORT
     Private-Port: 15662
     Public-Port-Name: PROXY_PORT
