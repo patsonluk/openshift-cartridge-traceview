@@ -23,7 +23,7 @@ Endpoints:
     Private-Port-Name: PORT
     Private-Port: 15672
     Private-Port-Name: SCRIBE_PORT
-    Private-Port: 48256
+    Private-Port: 48257
 Scaling:
   Min: 1
   Max: -1
