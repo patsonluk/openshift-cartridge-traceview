@@ -14,7 +14,6 @@ LOGDIR=${OPENSHIFT_TRACEVIEW_DIR}var/log/tracelyzer
 
 PIDDIR=${OPENSHIFT_TRACEVIEW_DIR}var/run/tracelyzer
 PIDFILE=$PIDDIR/$NAME.pid
-PIDFILE2=$PIDDIR/$NAME2.pid
 
 . /lib/lsb/init-functions
 
@@ -79,14 +78,14 @@ DAEMON2_OPTS="$DAEMON2_OPTS -p $COLLECTOR_PORT customer@$COLLECTOR_HOST"
 set -e
 
 any_running() {
-        ps -u $DAEMONUSER > /dev/null 2>&1
+        pgrep tracelyzer > /dev/null 2>&1
         return $?
 }
 
 all_running() {
         ps -C $NAME > /dev/null 2>&1 \
         && ps -C $NAME2 > /dev/null 2>&1 \
-        && ps -u appneta | grep ssh > /dev/null 2>&1
+        && ps -u ${USER} | grep ssh > /dev/null 2>&1
         return $?
 }
 
@@ -123,26 +122,23 @@ start_server() {
 stop_server() {
         set +e
 
-        #start-stop-daemon --stop --quiet --pidfile $PIDFILE \
-        #            --user $DAEMONUSER \
-        #            --exec $DAEMON
-        #start-stop-daemon --stop --quiet --pidfile $PIDFILE2 \
-        #            --user $DAEMONUSER \
-        #            --exec $DAEMON2
+        kill ${AUTOSSH_PIDFILE}
+        kill ${PIDFILE}
 
         sleep 2
 
-        #if any_running; then
-        #        killall -u $DAEMONUSER -9
-        #fi
+        if any_running; then
+                kill -9 ${AUTOSSH_PIDFILE}
+                kill -9 ${PIDFILE}
+        fi
 
         set -e
 }
 
 restart_server() {
-        #if any_running; then
-        #        stop_server
-        #fi
+        if any_running; then
+                stop_server
+        fi
 
         start_server
 }
@@ -173,12 +169,12 @@ case "$1" in
   stop)
         echo -n "Stopping $DESC..."
 
-        #if any_running; then
-        #        stop_server
-        #        echo "done."
-        #else
-        #        echo "apparently not running."
-        #fi
+        if any_running; then
+                stop_server
+                echo "done."
+        else
+                echo "apparently not running."
+        fi
 
         ;;
 
