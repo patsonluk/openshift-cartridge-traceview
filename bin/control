@@ -3,6 +3,8 @@
 source $OPENSHIFT_CARTRIDGE_SDK_BASH
 CALL=$1
 
+LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${OPENSHIFT_TRACEVIEW_DIR}usr/lib64:${OPENSHIFT_TRACEVIEW_DIR}usr/lib64/tracelyzer
+
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 
 DAEMON=${OPENSHIFT_TRACEVIEW_DIR}usr/bin/tracelyzer
