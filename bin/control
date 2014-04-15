@@ -122,14 +122,14 @@ start_server() {
 stop_server() {
         set +e
 
-        kill ${AUTOSSH_PIDFILE}
-        kill ${PIDFILE}
+        kill `cat ${AUTOSSH_PIDFILE}`
+        kill `cat ${PIDFILE}`
 
         sleep 2
 
         if any_running; then
-                kill -9 ${AUTOSSH_PIDFILE}
-                kill -9 ${PIDFILE}
+                kill -9 `cat ${AUTOSSH_PIDFILE}`
+                kill -9 `cat ${PIDFILE}`
         fi
 
         set -e
