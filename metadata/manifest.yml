@@ -27,9 +27,11 @@ Endpoints:
   - Private-IP-Name: LOCAL_IP1
     Private-Port-Name: PORT
     Private-Port: 15672
+    Public-Port-Name: TRACE_PORT
   - Private-IP-Name: SCRIBE_IP
     Private-Port-Name: SCRIBE_PORT
     Private-Port: 48257
+    Public-Port-Name: PUBLIC_SCRIBE_PORT 
 Scaling:
   Min: 1
   Max: -1
