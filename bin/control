@@ -107,7 +107,7 @@ start_server() {
         #        --exec $DAEMON2 --oknodo -- $DAEMON2_OPTS"
 
         echo "Executing: $DAEMON2 $DAEMON2_OPTS"
-        $DAEMON2 $DAEMON2_OPTS 2>&1 ${OPENSHIFT_TRACEVIEW_DIR}var/log/traceview-conn-stdout.log
+        `$DAEMON2 $DAEMON2_OPTS 2>&1 ${OPENSHIFT_TRACEVIEW_DIR}var/log/tracelyzer/traceview-conn-stdout.log`
 
         sleep 2
 
@@ -116,7 +116,7 @@ start_server() {
         #         --exec $DAEMON --oknodo -- $DAEMON_OPTS
         
         echo "Executing: $DAEMON $DAEMON_OPTS"
-        $DAEMON $DAEMON_OPTS 2>&1 ${OPENSHIFT_TRACEVIEW_DIR}var/log/tracelyzer-stdout.log
+        `$DAEMON $DAEMON_OPTS 2>&1 ${OPENSHIFT_TRACEVIEW_DIR}var/log/tracelyzer/tracelyzer-stdout.log`
 }
 
 stop_server() {
