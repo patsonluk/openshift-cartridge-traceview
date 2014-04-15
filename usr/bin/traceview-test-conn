@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+echo ''
+echo '##############################################################'
+echo '## Running Collector SSH Test'
+echo '##############################################################'
+echo ''
+
+/usr/bin/ssh -NnCv -i $OPENSHIFT_TRACEVIEW_DIR/etc/tracelyzer/auth_client -o UserKnownHostsFile=$OPENSHIFT_TRACEVIEW_DIR/etc/tracelyzer/auth_server.pub -o StrictHostKeyChecking=yes -p 2222 customer@s1b0.incoming.tracelytics.com
+
+echo ''
+echo '##############################################################'
+echo '## Running Collector WGET Test'
+echo '##############################################################'
+echo ''
+
+/usr/bin/wget -t 1 -T 2 -O - s1b0.incoming.tracelytics.com:2222
+
+
+echo ''
+echo '##############################################################'
+echo '## Complete - See output above
+echo '##############################################################'
+echo ''
