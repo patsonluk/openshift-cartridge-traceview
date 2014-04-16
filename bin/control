@@ -11,7 +11,7 @@ DAEMON=${OPENSHIFT_TRACEVIEW_DIR}usr/bin/tracelyzer
 DAEMON2=${OPENSHIFT_TRACEVIEW_DIR}usr/bin/tracelyzer-conn
 NAME=tracelyzer
 NAME2=tracelyzer-conn
-DESC=tracelyzer
+DESC="TraceView cartridge"
 LOGDIR=${OPENSHIFT_TRACEVIEW_DIR}var/log/tracelyzer
 
 PIDDIR=${OPENSHIFT_TRACEVIEW_DIR}var/run/tracelyzer
@@ -97,12 +97,10 @@ start_server() {
            return 1
         fi
 
-        echo "Executing: $DAEMON2 $DAEMON2_OPTS"
         $DAEMON2 $DAEMON2_OPTS
 
         sleep 2
 
-        echo "Executing: $DAEMON $DAEMON_OPTS"
         $DAEMON $DAEMON_OPTS
 }
 
