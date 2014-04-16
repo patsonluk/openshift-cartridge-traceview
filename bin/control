@@ -85,7 +85,7 @@ any_running() {
 all_running() {
         ps -C $NAME > /dev/null 2>&1 \
         && ps -C $NAME2 > /dev/null 2>&1 \
-        && ps -u ${USER} | grep ssh > /dev/null 2>&1
+        && ps -u ${OPENSHIFT_APP_UUID} | grep ssh > /dev/null 2>&1
         return $?
 }
 
@@ -97,24 +97,11 @@ start_server() {
            return 1
         fi
 
-        #if [ ! -d $PIDDIR ]; then
-        #    mkdir -p $PIDDIR
-        #    chown ${DAEMONUSER}: $PIDDIR
-        #fi
-
-        #/bin/sh -c "start-stop-daemon --start --quiet --pidfile $PIDFILE2 \
-        #        --chuid $DAEMONUSER \
-        #        --exec $DAEMON2 --oknodo -- $DAEMON2_OPTS"
-
         echo "Executing: $DAEMON2 $DAEMON2_OPTS"
         $DAEMON2 $DAEMON2_OPTS
 
         sleep 2
 
-        # start-stop-daemon --start --quiet --pidfile $PIDFILE \
-        #         --chuid $DAEMONUSER \
-        #         --exec $DAEMON --oknodo -- $DAEMON_OPTS
-        
         echo "Executing: $DAEMON $DAEMON_OPTS"
         $DAEMON $DAEMON_OPTS
 }
@@ -151,12 +138,6 @@ function not_implemented {
 case "$1" in
   start)
         echo -n "Starting $DESC..."
-
-        echo ''
-        echo '###################################'
-        echo `env`
-        echo '###################################'
-        echo ''
 
         restart_server
 
