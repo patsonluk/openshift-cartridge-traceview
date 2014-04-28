@@ -6,6 +6,8 @@
 This is a downloadable [TraceView](http://www.appneta.com/products/traceview/) cartridge for 
 Application Performance Monitoring on [OpenShift](https://www.openshift.com/).
 
+![pretty-trace-1million-and-1](https://s3.amazonaws.com/pglombardo/pretty-trace-1million-and-1.png)
+
 This downloadable cartridge installs the base TraceView libraries required to
 properly instrument your OpenShift application.
 
@@ -16,7 +18,21 @@ soon._
 
 # Installation
 
-You can add the downloadable cartridge to your OpenShift application via [web browser](#web-browser) or [command line](#command-line).
+## Specifying your TraceView Access Key
+
+It's required that before installation of the cartridge, that you add your _TraceView Access Key_ to your OpenShift application.
+
+Make sure you have a [TraceView](http://www.appneta.com/products/traceview/) account already setup.  If not, you can quickly sign up for a [free tracing account](http://www.appneta.com/products/traceview-free-account/).
+
+Once you have your TraceView account, you can retrieve your Access Key on your [dashboard](https://login.tv.appneta.com/account/details).
+
+Add your Access Key to your OpenShift Application by setting an environment variable with the `rhc set-env` command as follows:
+
+    rhc set-env TRACEVIEW_ACCESS_KEY=Your_Access_Key -a Your_App_Name
+
+_Make sure to replace Your_Access_Key and Your_App_Name with the appropriate values._
+
+Once this is done, you can add the downloadable cartridge to your OpenShift application via [web browser](#web-browser) or [command line](#command-line).
 
 ## Web Browser
 
@@ -46,7 +62,7 @@ If at anytime you wish to remove the cartridge, it can be done with:
 
 # Summary
 
-Congratulations, the the TraceView cartridge is now installed.  If, by chance you received any errors
+Congratulations, the TraceView cartridge for OpenShift should now be installed.  If, by chance you received any errors
 or warnings during this process please let us know by contacting us through our [support portal](https://support.tv.appneta.com/) or on IRC @ #appneta on [Freenode](http://freenode.net/).  We appreciate all feedback!
 
 # Ruby
