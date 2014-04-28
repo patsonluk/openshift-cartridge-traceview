@@ -16,21 +16,9 @@ soon._
 
 # Installation
 
-You can add the downloadable cartridge to your OpenShift application via the UI or via the command line.
+You can add the downloadable cartridge to your OpenShift application via [web browser](#web-browser) or [command line](#command-line).
 
-## Via Command Line
-
-To install the catridge using the `rhc` command via the command-line, run the following:
-
-    rhc cartridge-add https://raw.githubusercontent.com/appneta/openshift-cartridge-traceview/master/metadata/manifest.yml -a My_App_Name
-
-Make sure to replace _My_App_Name_ with the actual OpenShift application name.
-
-If at anytime you wish to remove the cartridge, it can be done with:
-
-    rhc cartridge-remove traceview -a My_App_Name
-
-## Via Web Browser
+## Web Browser
 
 On your OpenShift application page, click on the link _...see the entire list of cartridges you can add_
 at the bottom of the page.  This brings you to a list of installable cartridges.  At the bottom
@@ -43,6 +31,18 @@ Insert the URL of the raw catridge manifest file on Github and click Next:
     https://raw.githubusercontent.com/appneta/openshift-cartridge-traceview/master/metadata/manifest.yml
 
 From there, you will be taken to a confirmation page.  Click _Add Cartridge_ to confirm the installation.
+
+## Command Line
+
+To install the catridge using the `rhc` command via the command-line, run the following:
+
+    rhc cartridge-add https://raw.githubusercontent.com/appneta/openshift-cartridge-traceview/master/metadata/manifest.yml -a My_App_Name
+
+Make sure to replace _My_App_Name_ with the actual OpenShift application name.
+
+If at anytime you wish to remove the cartridge, it can be done with:
+
+    rhc cartridge-remove traceview -a My_App_Name
 
 # Summary
 
