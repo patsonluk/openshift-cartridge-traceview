@@ -6,7 +6,7 @@
 This is a downloadable [TraceView](http://www.appneta.com/products/traceview/) cartridge for 
 Application Performance Monitoring on [OpenShift](https://www.openshift.com/).
 
-![pretty-trace-1million-and-1](https://s3.amazonaws.com/pglombardo/pretty-trace-1million-and-1.png)
+![pretty-trace-1million-and-1](https://s3.amazonaws.com/pglombardo/pretty-trace-1million-and-2.png)
 
 This downloadable cartridge installs the base TraceView libraries required to
 properly instrument your OpenShift application.
