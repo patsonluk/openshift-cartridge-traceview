@@ -1,7 +1,7 @@
 host=<%= ENV['OPENSHIFT_TRACEVIEW_SCRIBE_IP'] %>
 port=<%= ENV['OPENSHIFT_TRACEVIEW_SCRIBE_PORT'] %>
 num_thrift_server_threads=1
-clientid=f51e2a43-0ee5-4851-8a54-825773b3218e
+clientid=<%= ENV['OPENSHIFT_TRACEVIEW_ACCESS_KEY'] %>
 <store>
 category=default
 type=network
