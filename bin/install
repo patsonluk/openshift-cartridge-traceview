@@ -5,4 +5,27 @@ case "$1" in
     version="$2"
 esac
 
+
+if [ ! -n "$TRACEVIEW_ACCESS_KEY" ]; then
+  echo "Your TraceView access key isn't set.  Please set this environment variable"
+  echo "before installing the TraceView cartridge."
+  echo ""
+  echo "Your TraceView access key can be found on your dashboard:"
+  echo "https://login.tv.appneta.com/account/details"
+  echo ""
+  echo "If you don't yet have a TraceView account, you can create one for free here:"
+  echo "http://www.appneta.com/products/traceview-free-account/"
+  echo ""
+  echo ""
+  echo "You can run the following command to specify your TraceView Access Key:"
+  echo ""
+  echo "rhc set-env TRACEVIEW_ACCESS_KEY=<Your Access Key> -a <Your App Name>"
+  echo ""
+  echo ""
+  echo "You can see what user environment variables you currently have set by using:"
+  echo "rhc env list -a <Your App Name>"
+  echo ""
+  echo 1
+fi
+
 exit 0
