@@ -25,7 +25,7 @@ if [ ! -n "$TRACEVIEW_ACCESS_KEY" ]; then
   echo "You can see what user environment variables you currently have set by using:"
   echo "rhc env list -a <Your App Name>"
   echo ""
-  echo 1
+  exit 1
 fi
 
 exit 0
