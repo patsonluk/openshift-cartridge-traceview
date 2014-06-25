@@ -30,6 +30,9 @@ Endpoints:
   - Private-IP-Name: SCRIBE_IP
     Private-Port-Name: SCRIBE_PORT
     Private-Port: 48257
+  - Private-IP-Name: JAVA_DATAGRAM_IP
+    Private-Port-Name: JAVA_DATAGRAM_PORT
+    Private-Port: 15674
 Scaling:
   Min: 1
   Max: -1
